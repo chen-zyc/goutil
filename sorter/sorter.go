@@ -2,10 +2,12 @@ package sorter
 
 import "sort"
 
+import "sort"
+
 type Sorter struct {
-	Len  func() int
-	Less func(i, j int) bool
-	Swap func(i, j int)
+	LenFunc  func() int
+	LessFunc func(i, j int) bool
+	SwapFunc func(i, j int)
 }
 
 func (s Sorter) Sort() {
@@ -13,13 +15,14 @@ func (s Sorter) Sort() {
 }
 
 func (s Sorter) Len() int {
-	return s.Len()
+	return s.LenFunc()
 }
 
 func (s Sorter) Less(i, j int) bool {
-	return s.Less(i, j)
+	return s.LessFunc(i, j)
 }
 
 func (s Sorter) Swap(i, j int) {
-	s.Swap(i, j)
+	s.SwapFunc(i, j)
 }
+
