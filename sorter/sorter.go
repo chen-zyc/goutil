@@ -2,8 +2,6 @@ package sorter
 
 import "sort"
 
-import "sort"
-
 type Sorter struct {
 	LenFunc  func() int
 	LessFunc func(i, j int) bool
