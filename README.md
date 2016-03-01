@@ -52,14 +52,47 @@
 
 反转切片的值.
 
-比如： `slice := []int{3, 9, 0, -3, -5}`，
-反转： `ReverseInt(slice)`，
+比如： `slice := []int{3, 9, 0, -3, -5}`
+
+反转： `ReverseInt(slice)`
+
 结果： `{-5, -3, 0, 9, 3}`
 
 ### Shift
 
-左/右移切片。
+左移/右移切片。
 
-比如： `slice := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}`，
-反转： `ShiftLeftInt(slice, 3)`，
+比如： `slice := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}`
+
+反转： `ShiftLeftInt(slice, 3)`
+
 结果： `{4, 5, 6, 7, 8, 9, 1, 2, 3}`
+
+
+## printer
+
+打印相关的包。
+
+### TreeString()
+
+打印一棵树，树结点实现了 `TreeNodePrinter` 接口，效果如下：
+
+```
+G, M, P, X
+|-- A, C, D, E
+|-- J, K
+|-- N, O
+|-- R, S, T, U, V
+`-- Y, Z
+```
+
+### PrintTree()
+
+返回打印结果的字符串切片，每一个切片的元素表示树的一行。
+
+
+## btree
+
+b树的实现，详情参考 <http://blog.csdn.net/u013790019/article/details/47456607>
+
+
