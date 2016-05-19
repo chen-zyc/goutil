@@ -96,3 +96,9 @@ G, M, P, X
 b树的实现，详情参考 <http://blog.csdn.net/u013790019/article/details/47456607>
 
 
+## LCS 最长公共子序列
+
+```go
+lcs.LCS([]rune("ABCBDAB"), []rune("BDCABA"))
+```
+
