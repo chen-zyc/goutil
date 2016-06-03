@@ -13,9 +13,37 @@ type TreeNodePrinter interface {
 }
 
 func PrintTree(n TreeNodePrinter) []string {
+	return printTree(n, -1)
+}
+
+func TreeString(n TreeNodePrinter, lineBreak string) string {
+	return TreeStringDepth(n, lineBreak, -1)
+}
+
+func PrintTreeDepth(n TreeNodePrinter, depth int) []string {
+	return printTree(n, depth)
+}
+
+func TreeStringDepth(n TreeNodePrinter, lineBreak string, depth int) string {
+	treeSlice := printTree(n, depth)
+	var s bytes.Buffer
+	for _, v := range treeSlice {
+		s.WriteString(v)
+		s.WriteString(lineBreak)
+	}
+	return s.String()
+}
+
+func printTree(n TreeNodePrinter, depth int) []string {
 	dataThisNode := n.String()
 	var treeSlice []string
 	treeSlice = append(treeSlice, dataThisNode)
+	if depth != -1 {
+		depth--
+		if depth <= 0 {
+			return treeSlice
+		}
+	}
 
 	children := n.Children()
 	for i, c := range children {
@@ -24,7 +52,7 @@ func PrintTree(n TreeNodePrinter) []string {
 		if child, ok = c.(TreeNodePrinter); !ok {
 			continue
 		}
-		childSlice := PrintTree(child)
+		childSlice := printTree(child, depth)
 
 		// 是否还有兄弟结点
 		hasNextChild := false
@@ -56,14 +84,4 @@ func PrintTree(n TreeNodePrinter) []string {
 	}
 
 	return treeSlice
-}
-
-func TreeString(n TreeNodePrinter, lineBreak string) string {
-	treeSlice := PrintTree(n)
-	var s bytes.Buffer
-	for _, v := range treeSlice {
-		s.WriteString(v)
-		s.WriteString(lineBreak)
-	}
-	return s.String()
 }
