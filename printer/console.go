@@ -66,7 +66,7 @@ func ScrCursorRestore() {
 // ScrColor 输出颜色设置
 // f 前景色 0-15
 // b 背景色 0-7
-func ScrColor(f int, b int) {
+func ScrColor(f int, b int) string {
 	var tmp string
 	var colors = [8]int{0, 4, 2, 6, 1, 5, 3, 7}
 
@@ -83,12 +83,12 @@ func ScrColor(f int, b int) {
 		tmp += "1;"
 	}
 
-	fmt.Printf("\033[%s%d;%dm", tmp, fg, bg)
+	return fmt.Sprintf("\033[%s%d;%dm", tmp, fg, bg)
 }
 
 // ColorReset 重置颜色设置
-func ScrColorReset() {
-	fmt.Print("\033[0m")
+func ScrColorReset() string {
+	return "\033[0m"
 }
 
 // Wait 显示等待图表
