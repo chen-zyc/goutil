@@ -23,7 +23,7 @@ var canTest bool
 func init() {
 	exist := func(fname string) bool {
 		_, err := os.Stat(fname)
-		if err == nil || err == os.IsExist(err) {
+		if err == nil || os.IsExist(err) {
 			return true
 		}
 		return false
