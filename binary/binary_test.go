@@ -82,8 +82,31 @@ func TestBitCount32(t *testing.T) {
 	}
 }
 
+func TestBitCount64(t *testing.T) {
+	cases := map[int64]int{
+		0x0:               0,
+		0x1:               1,
+		0xF:               4,
+		0x5:               2,
+		0xA:               2,
+		0xFFFFFFF:         28,
+		0xFFFFFFFFFFFFFFF: 60,
+	}
+	for x, want := range cases {
+		if act := BitCount64(x); act != want {
+			t.Fatalf("%b, want %d, got %d", x, want, act)
+		}
+	}
+}
+
 func BenchmarkBitCount32(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		BitCount32(0xFFFFFFF)
+	}
+}
+
+func BenchmarkBitCount64(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		BitCount64(0xFFFFFFF)
 	}
 }
