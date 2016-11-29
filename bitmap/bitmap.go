@@ -3,7 +3,52 @@ package bitmap
 import (
 	"bytes"
 	"fmt"
+	"strconv"
 )
+
+const intSize = 32 << (^uint(0) >> 63)
+const shift = 5 + (^uint(0) >> 63)
+const mask = intSize - 1
+
+func init() {
+	println(intSize, shift, mask)
+}
+
+type BitMap struct {
+	a    []uint
+	size uint
+}
+
+func NewBitMap(size int) *BitMap {
+	return &BitMap{
+		a:    make([]uint, size),
+		size: uint(size),
+	}
+}
+
+func (bm *BitMap) Set(i uint) {
+	bm.a[(i>>shift)%bm.size] |= 1 << (i & mask)
+}
+
+func (bm *BitMap) Clear(i uint) {
+	bm.a[(i>>shift)%bm.size] &= ^(1 << (i & mask))
+}
+
+func (bm *BitMap) In(i uint) bool {
+	return bm.a[(i>>shift)%bm.size]&(1<<(i&mask)) > 0
+}
+
+func (bm *BitMap) String() string {
+	format := "%0" + strconv.Itoa(intSize) + "b"
+	buf := bytes.NewBuffer(make([]byte, 0, len(bm.a)*(intSize+1)))
+	for i, x := range bm.a {
+		if i != 0 {
+			buf.WriteByte(',')
+		}
+		buf.WriteString(fmt.Sprintf(format, x))
+	}
+	return buf.String()
+}
 
 type BitMap32 struct {
 	a    []uint32
